@@ -42,7 +42,7 @@ class TaskController extends Controller
     // Memperbarui tugas yang sudah ada
     public function update(Request $request, $id)
     {
-        $task = Task::findOrFail($id); // Mencari tugas berdasarkan ID, jika tidak ditemukan akan mengembalikan error 404
+        $task = Task::findOrFail($id); 
 
         // Validasi data masukan
         $validated = $request->validate([
@@ -63,8 +63,8 @@ class TaskController extends Controller
     // Menghapus tugas
     public function destroy($id)
     {
-        $task = Task::findOrFail($id); // Mencari tugas berdasarkan ID, jika tidak ditemukan akan mengembalikan error 404
-        $task->delete(); // Menghapus tugas dari database
+        $task = Task::findOrFail($id); 
+        $task->delete(); 
 
         return response()->json(['message' => 'Task berhasil dihapus'], 200); // Mengembalikan respons JSON dengan pesan sukses
     }
@@ -72,8 +72,7 @@ class TaskController extends Controller
     // Mengambil tugas yang ditugaskan kepada pengguna yang sedang login
     public function myTasks(Request $request)
     {
-        $userId = $request->user()->id; // Mendapatkan ID pengguna yang sedang login
-
+        $userId = $request->user()->id; 
         $tasks = Task::where('assigned_to', $userId)->get(); // Mengambil tugas yang penanggung jawabnya adalah user yang sedang login
 
         return TaskResource::collection($tasks); // Mengembalikan koleksi resource task
